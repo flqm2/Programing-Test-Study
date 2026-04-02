@@ -15,7 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TestFile.cpp">
+    <ClCompile Include="R_LoL_Dic.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="R_LoL_Dic2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="LoL_Dic.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

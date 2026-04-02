@@ -127,7 +127,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="TestFile.cpp" />
+    <ClCompile Include="LoL_Dic.cpp" />
+    <ClCompile Include="R_LoL_Dic.cpp" />
+    <ClCompile Include="R_LoL_Dic2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
