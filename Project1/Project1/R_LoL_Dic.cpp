@@ -36,9 +36,6 @@ CharatherInfo LoL_Dic[100] = {
 	{"Taric", 6158, 7451, 160, 36, "bottom" }
 };
 
-int indexarr = 22;
-int arrcount = 0;
-
 int TextTest(const char* str1, const char* str2) {
 	while (*str1 != '\0' && (*str1 == *str2)) {
 		str1++;
@@ -56,131 +53,63 @@ void Strcpy(char* chead, char* ctail) {
 	*chead = '\0';
 }
 
-void SearchTest(char c[]) {
-	if (indexarr == arrcount) {
+void Search(char str[], int temp) {
+	if (temp >= 100) {
+		cout << "없습니다.";
 		return;
 	}
-	if (TextTest(LoL_Dic[arrcount].name, c) == 0) {
-		cout << "Name : " << LoL_Dic[arrcount].name << endl;
-		cout << "HP : " << LoL_Dic[arrcount].hp << endl;
-		cout << "MP : " << LoL_Dic[arrcount].mp << endl;
-		cout << "Speed : " << LoL_Dic[arrcount].speed << endl;
-		cout << "Range : " << LoL_Dic[arrcount].range << endl;
-		cout << "Position : " << LoL_Dic[arrcount].position << endl;
+	if (TextTest(LoL_Dic[temp].name, str) == 0) {
+		cout << "Name : " << LoL_Dic[temp].name << endl;
+		cout << "HP : " << LoL_Dic[temp].hp << endl;
+		cout << "MP : " << LoL_Dic[temp].mp << endl;
+		cout << "Speed : " << LoL_Dic[temp].speed << endl;
+		cout << "Range : " << LoL_Dic[temp].range << endl;
+		cout << "Position : " << LoL_Dic[temp].position << endl;
 		return;
 	}
-	arrcount++;
-	return SearchTest(c);
+	Search(str, temp + 1);
 }
 
 void ChampSearch() {
-	arrcount = 0;
-	if (indexarr == 0) {
-		cout << "리스트에 챔피언이 없습니다. 챔피언을 추가해 주세요." << endl;
-		return;
-	}
-	char searcharr[100];
-	cout << "찾으실 챔피언의 이름을 입력하세요 : ";
-	cin.getline(searcharr,100);
-	SearchTest(searcharr);
-	if (indexarr <= arrcount) {
-		cout << "찾으시는 챔피언이 존재하지 않습니다." << endl;
-		return;
-	}
+	int indexarr = 0;
+	char seararr[100];
+	cout << "찾을 챔피언의 이름을 입력 : ";
+	cin.getline(seararr, 100);
+	Search(seararr, indexarr);
 }
 
 void ChampInsert() {
-	arrcount = 0;
-	if (indexarr >= 100) {
-		cout << "더 이상 캐릭터를 추가할 수 없습니다. 캐릭터를 추가해 주세요.";
-		return;
-	}
-	char insertarr[100];
+
 }
 
-void DeleteTest(char del[]) {
-	if (arrcount < 0) {
-		cout << "챔피언이 존재하지 않습니다." << endl;
+void Delete(char str[], int temp) {
+	if (temp >= 100) {
+		cout << "없습니다." << endl;
 		return;
 	}
-	if (TextTest(LoL_Dic[arrcount].name, del) == 0) {
-		for (int i = arrcount; i < indexarr-1; i++) {
-			LoL_Dic[i] = LoL_Dic[i + 1];
-		}
-		cout << "삭제 되었습니다." << endl;
-		indexarr--;
+	if (TextTest(LoL_Dic[temp].name, str) == 0) {
+		LoL_Dic[temp] = {};
+		cout << "삭제 되었습니다.";
 		return;
 	}
-	else {
-		arrcount--;
-		DeleteTest(del);
-	}
-}
-
-void ChampDelete() {
-	if (indexarr == 0) {
-		cout << "삭제할 챔피언이 존재하지 않습니다." << endl;
-		return;
-	}
-	char delarr[100];
-	int delcount = 0;
-	arrcount = indexarr - 1;
-	cout << "삭제할 챔피언의 이름을 입력하세요 : ";
-	cin.getline(delarr, 100);
-	DeleteTest(delarr);
-}
-
-void DeleteAllTest(char del[],int dec) {
-	if (arrcount < 0 && dec != 0) {
-		cout << "삭제 되었습니다." << endl;
-		return;
-	}
-	else if (arrcount < 0) {
-		cout << "포지션이 존재하지 않습니다." << endl;
-		return;
-	}
-	if (TextTest(LoL_Dic[arrcount].position, del) == 0) {
-		for (int i = arrcount; i < indexarr - 1; i++) {
-			LoL_Dic[i] = LoL_Dic[i + 1];
-		}
-		indexarr--;
-		dec++;
-	}
-	arrcount--;
-	DeleteAllTest(del,dec);
+	Delete(str, temp + 1);
 	
 }
 
-void ChampDeleteAll() {
-	if (indexarr == 0) {
-		cout << "삭제할 포지션이 존재하지 않습니다." << endl;
-		return;
-	}
+void ChampDelete() {
 	char delarr[100];
-	int delcount = 0;
-	arrcount = indexarr - 1;
-	cout << "삭제할 포지션을 입력하세요 : ";
+	int indexarr = 0;
+	cout << "삭제할 챔피언의 이름을 입력 : ";
 	cin.getline(delarr, 100);
-	DeleteAllTest(delarr,delcount);
+	Delete(delarr, indexarr);
+}
+
+void ChampDeleteAll() {
+	
 }
 
 void ChampPrintAll() {
-	if (indexarr == 0) {
-		cout << "리스트에 챔피언이 없습니다. 챔피언을 추가해 주세요." << endl;
-		return;
-	}
-	if (arrcount == indexarr) {
-		arrcount = 0;
-		return;
-	}
-	cout << LoL_Dic[arrcount].name << ", ";
-	cout << LoL_Dic[arrcount].hp << ", ";
-	cout << LoL_Dic[arrcount].mp << ", ";
-	cout << LoL_Dic[arrcount].speed << ", ";
-	cout << LoL_Dic[arrcount].range << ", ";
-	cout << LoL_Dic[arrcount].position << endl;
-	arrcount++;
-	return ChampPrintAll();
+	
 }
 
 void ChampFMH() {
@@ -220,7 +149,6 @@ int main() {
 			ChampDeleteAll();
 		}
 		else if (TextTest(input, "PrintAll") == 0) {
-			arrcount = 0;
 			ChampPrintAll();
 		}
 		else if (TextTest(input, "FindMaxHp") == 0) {

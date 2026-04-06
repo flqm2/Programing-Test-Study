@@ -33,7 +33,7 @@ CharatherInfo LoL_Dic[100] = {
 	{"Jarvan", 1895, 3070, 323, 80, "mid"},
 	{"Shen", 4794, 9220, 783, 42, "mid"},
 	{"Fizz", 9864, 1913, 433, 38, "bottom"},
-	{"Taric", 6158, 7451, 160, 36, "bottom" }
+	{"Taric", 6158, 7451, 160, 36, "bottom" },
 };
 
 int indexarr = 22;
