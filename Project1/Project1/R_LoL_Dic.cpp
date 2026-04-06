@@ -104,8 +104,18 @@ void ChampDelete() {
 	Delete(delarr, indexarr);
 }
 
+void DeleteALL(char str[], int temp) {
+	if (TextTest(LoL_Dic[temp].position, str) == 0) {
+		LoL_Dic[temp] = {};
+	}
+}
+
 void ChampDeleteAll() {
-	
+	char dearr[100];
+	int indexarr = 0;
+	cout << "삭제할 포지션 선택 : ";
+	cin.getline(dearr, 100);
+	DeleteALL(dearr, indexarr);
 }
 
 void ChampPrintAll() {
