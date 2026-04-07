@@ -106,6 +106,10 @@ int InsertValue() {
 }
 
 void Insert(int hp, int mp, int sp, int ra, int temp, char name[], char pos[]) {
+	if (temp >= 100) {
+		cout << "잘못된 접근" << endl;
+		return;
+	}
 	if (LoL_Dic[temp].isvalue == false) {
 		Strcpy(LoL_Dic[temp].name, name);
 		LoL_Dic[temp].hp = hp;
@@ -119,21 +123,17 @@ void Insert(int hp, int mp, int sp, int ra, int temp, char name[], char pos[]) {
 	Insert(hp, mp, sp, ra, temp + 1, name, pos);
 }
 
-void NameCompare(int temp, char name[], int count) {
+void NameCompare(int temp, char name[]) {
 	if (temp >= 100) {
 		return;
 	}
-	if (count != 0) {
-		temp = 0;
-		cout << "추가할 챔피언의 이름 입력 : ";
-		cin.getline(name, 100);
-		count = 0;
-	}
 	if (TextTest(LoL_Dic[temp].name, name) == 0 && LoL_Dic[temp].isvalue == true) {
-		cout << "동일한 이름의 챔피언이 존재" << endl;
-		count++;
+		cout << "동일한 이름의 챔피언이 존재 다시 입력하세요 : " << endl;
+		cin.getline(name, 100);
+		NameCompare(0, name);
+		return;
 	}
-	NameCompare(temp + 1, name, count);
+	NameCompare(temp + 1, name);
 }
 
 void ChampInsert() {
@@ -143,13 +143,14 @@ void ChampInsert() {
 		}
 		else if(i == 99) {
 			cout << "리스트가 가득 찼습니다.";
+			return;
 		}
 	}
 	char namearr[100], posarr[100];
 	int h, m, s, r, indexarr = 0;
 	cout << "추가할 캐릭터의 이름을 입력 : ";
 	cin.getline(namearr, 100);
-	NameCompare(0, namearr, 0);
+	NameCompare(0, namearr);
 	cout << "Hp : ";
 	h = InsertValue();
 	cout << "MP : ";
@@ -313,28 +314,6 @@ void ChampSBH() {
 	InjectTemp(temp, count, 0);
 
 	cout << "정렬 완료" << endl;
-	//for (int i = 0; i < 100; i++) {
-	//	if (LoL_Dic[i].isvalue == true) {
-	//		temp[count] = LoL_Dic[i];
-	//		count++;
-	//	}
-	//}
-	//for (int i = 0; i < count-1; i++) {
-	//	for (int j = 0; j < count - 1; j++) {
-	//		if (temp[j].hp < temp[j + 1].hp) {
-	//			list = temp[j];
-	//			temp[j] = temp[j + 1];
-	//			temp[j + 1] = list;
-	//		}
-	//	}
-	//}
-	//count = 0;
-	//for (int i = 0; i < 100; i++) {
-	//	if (LoL_Dic[i].isvalue == true) {
-	//		LoL_Dic[i] = temp[count];
-	//		count++;
-	//	}
-	//}
 }
 
 void HelpRule() {
@@ -357,7 +336,6 @@ int main() {
 			ChampSearch();
 		}
 		else if (TextTest(input, "Insert") == 0) {
-			CharatherInfo Insert_Info;
 			ChampInsert();
 		}
 		else if (TextTest(input, "Delete") == 0) {
