@@ -107,7 +107,6 @@ int InsertValue() {
 
 void Insert(int hp, int mp, int sp, int ra, int temp, char name[], char pos[]) {
 	if (LoL_Dic[temp].isvalue == false) {
-		cout << "들어옴 확인";
 		Strcpy(LoL_Dic[temp].name, name);
 		LoL_Dic[temp].hp = hp;
 		LoL_Dic[temp].mp = mp;
@@ -118,6 +117,23 @@ void Insert(int hp, int mp, int sp, int ra, int temp, char name[], char pos[]) {
 		return;
 	}
 	Insert(hp, mp, sp, ra, temp + 1, name, pos);
+}
+
+void NameCompare(int temp, char name[], int count) {
+	if (temp >= 100) {
+		return;
+	}
+	if (count != 0) {
+		temp = 0;
+		cout << "추가할 챔피언의 이름 입력 : ";
+		cin.getline(name, 100);
+		count = 0;
+	}
+	if (TextTest(LoL_Dic[temp].name, name) == 0 && LoL_Dic[temp].isvalue == true) {
+		cout << "동일한 이름의 챔피언이 존재" << endl;
+		count++;
+	}
+	NameCompare(temp + 1, name, count);
 }
 
 void ChampInsert() {
@@ -133,12 +149,7 @@ void ChampInsert() {
 	int h, m, s, r, indexarr = 0;
 	cout << "추가할 캐릭터의 이름을 입력 : ";
 	cin.getline(namearr, 100);
-	for (int i = 0; i < 100; i++) {
-		if (TextTest(namearr, LoL_Dic[i].name) == 0) {
-			cout << "동일한 이름의 챔피언 존재" << endl;
-			continue;
-		}
-	}
+	NameCompare(0, namearr, 0);
 	cout << "Hp : ";
 	h = InsertValue();
 	cout << "MP : ";
@@ -180,7 +191,7 @@ void DeleteALL(char str[], int temp, int &count) {
 	if (temp >= 100) {
 		return;
 	}
-	if (TextTest(LoL_Dic[temp].position, str) == 0) {
+	if (TextTest(LoL_Dic[temp].position, str) == 0 && LoL_Dic[temp].isvalue == true) {
 		LoL_Dic[temp] = {};
 		count++;
 	}
@@ -221,7 +232,7 @@ void FindMaxHp(int temp, int top) {
 	if (temp >= 100) {
 		return;
 	}
-	if (top == LoL_Dic[temp].hp) {
+	if (top == LoL_Dic[temp].hp && LoL_Dic[temp].isvalue == true) {
 		cout << "Name : " << LoL_Dic[temp].name << endl;
 		cout << "HP : " << LoL_Dic[temp].hp << endl;
 		cout << "MP : " << LoL_Dic[temp].mp << endl;
