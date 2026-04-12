@@ -1,66 +1,51 @@
 #include <iostream>
 
+
+
+/* 1. 좌표를 입력 받아 돌을 놓는다.
+   2. 입력된 좌표 위치에는 다른 돌을 못 놓는다.
+   3. 검은돌과 흰돌을 번갈아 놓는다.
+   4. 검은돌의 갯수와 흰돌의 갯수가 출력되게 한다.*/
+
 using namespace std;
 
-int main() {
-	int x, y, count = 0, black = 0, white = 0;
-	char baduk[19][19] = { 0 };
-	const char* c;
-	for (int i = 0; i < 19; i++) {
-		for (int j = 0; j < 19; j++) {
-			baduk[i][j] = '+';
+const int BADUK_TABLE = 19;
+
+void MadeTabel(char table[][BADUK_TABLE]) {
+	for (int i = 0; i < BADUK_TABLE; i++) {
+		for (int j = 0; j < BADUK_TABLE; j++) {
+			table[i][j] = '+';
 		}
 	}
-	for (int i = 0; i < 19; i++) {
-		for (int j = 0; j < 19; j++) {
-			cout << baduk[i][j] << " ";
+}
+
+void PriTable(char table[][BADUK_TABLE]) {
+	for (int i = 0; i < BADUK_TABLE; i++) {
+		for (int j = 0; j < BADUK_TABLE; j++) {
+			cout << table[i][j] << " ";
 		}
 		cout << endl;
 	}
-	if (count % 2 == 0) {
-		c = "흑돌";
-	}
-	else {
-		c = "백돌";
-	}
-	cout << c << "을 놓을 위치를 입력하세요 (예 1 2) 종료는 20 20 입력 : ";
-	cin >> x >> y;
-	if (x == 20 && y == 20) {
-		cout << "종료 되었습니다.";
-		return 0;
-	}
-	system("cls");
-	while (true)
-	{
-		if ((x == 20 && y == 20) || (x > 20 || y > 20)) {
-			cout << "종료 되었습니다.";
-			break;
-		}
-		if (baduk[x][y] != '+') {
-			cout << "이미 돌이 놓여 있습니다." << endl;
-		}
-		else {
-			if (count % 2 == 0) {
-				baduk[x][y] = 'o';
-				count++;
-				black++;
-			}
-			else {
-				baduk[x][y] = '@';
-				count++;
-				white++;
-			}
+}
 
-		}
-		for (int i = 0; i < 19; i++) {
-			for (int j = 0; j < 19; j++) {
-				cout << baduk[i][j] << " ";
-			}
-			cout << endl;
-		}
-		cout << "흑돌 : " << black << " 백돌 : " << white;
-		cout << c << "을 놓을 위치를 입력하세요 (예 1 2) 종료는 20 20 입력 : ";
-		cin >> x >> y;
+void FailTest(int a, int b) {
+	if (cin.fail()) {
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << "잘못 입력하셨습니다." << endl;
+	}
+	return;
+}
+
+int main() {
+	char bTable[BADUK_TABLE][BADUK_TABLE] = {};
+	int input1 = 0, input2 = 0;
+	while (true) {
 		system("cls");
+		MadeTabel(bTable);
+		PriTable(bTable);
+		cout << "놓을 돌의 위치를 입력하세요 [ex 13 10] 종료는 19 19 입력 : ";
+		cin >> input1 >> input2;
+		FailTest(input1, input2);
 	}
 }
