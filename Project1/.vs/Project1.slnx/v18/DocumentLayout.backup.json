@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "C:\\GitHub\\Programing-Test-Study\\Project1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{35310EB0-4257-47D8-A769-78FFB7C40C97}|Project1\\Project1.vcxproj|C:\\GitHub\\Programing-Test-Study\\Project1\\Project1\\R_LoL_Dic.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{35310EB0-4257-47D8-A769-78FFB7C40C97}|Project1\\Project1.vcxproj|solutionrelative:Project1\\R_LoL_Dic.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{35310EB0-4257-47D8-A769-78FFB7C40C97}|Project1\\Project1.vcxproj|C:\\GitHub\\Programing-Test-Study\\Project1\\Project1\\R_LoL_Dic2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{35310EB0-4257-47D8-A769-78FFB7C40C97}|Project1\\Project1.vcxproj|solutionrelative:Project1\\R_LoL_Dic2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{35310EB0-4257-47D8-A769-78FFB7C40C97}|Project1\\Project1.vcxproj|C:\\GitHub\\Programing-Test-Study\\Project1\\Project1\\Baduk.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{35310EB0-4257-47D8-A769-78FFB7C40C97}|Project1\\Project1.vcxproj|solutionrelative:Project1\\Baduk.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +14,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "R_LoL_Dic2.cpp",
-              "DocumentMoniker": "C:\\GitHub\\Programing-Test-Study\\Project1\\Project1\\R_LoL_Dic2.cpp",
-              "RelativeDocumentMoniker": "Project1\\R_LoL_Dic2.cpp",
-              "ToolTip": "C:\\GitHub\\Programing-Test-Study\\Project1\\Project1\\R_LoL_Dic2.cpp",
-              "RelativeToolTip": "Project1\\R_LoL_Dic2.cpp",
-              "ViewState": "AgIAADMAAAAAAAAAAAAAACMAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-04-06T06:46:49.484Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "R_LoL_Dic.cpp",
-              "DocumentMoniker": "C:\\GitHub\\Programing-Test-Study\\Project1\\Project1\\R_LoL_Dic.cpp",
-              "RelativeDocumentMoniker": "Project1\\R_LoL_Dic.cpp",
-              "ToolTip": "C:\\GitHub\\Programing-Test-Study\\Project1\\Project1\\R_LoL_Dic.cpp",
-              "RelativeToolTip": "Project1\\R_LoL_Dic.cpp",
-              "ViewState": "AgIAAEkAAAAAAAAAAAASwF8AAAABAAAAAAAAAA==",
+              "Title": "Baduk.cpp",
+              "DocumentMoniker": "C:\\GitHub\\Programing-Test-Study\\Project1\\Project1\\Baduk.cpp",
+              "RelativeDocumentMoniker": "Project1\\Baduk.cpp",
+              "ToolTip": "C:\\GitHub\\Programing-Test-Study\\Project1\\Project1\\Baduk.cpp*",
+              "RelativeToolTip": "Project1\\Baduk.cpp*",
+              "ViewState": "AgIAABYAAAAAAAAAAAAAADEAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-04-06T06:35:01.664Z",
+              "WhenOpened": "2026-04-11T16:25:35.908Z",
               "EditorCaption": ""
             }
           ]
