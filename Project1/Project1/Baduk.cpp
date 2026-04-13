@@ -1,7 +1,5 @@
 #include <iostream>
 
-
-
 /* 1. 좌표를 입력 받아 돌을 놓는다.
    2. 입력된 좌표 위치에는 다른 돌을 못 놓는다.
    3. 검은돌과 흰돌을 번갈아 놓는다.
@@ -28,11 +26,25 @@ void PriTable(char table[][BADUK_TABLE]) {
 	}
 }
 
-void FailTest(int a, int b) {
+void InputTest(int &a, int &b, bool compare) {
+	if (compare == true) {
+		cout << "흑돌을 놓을 위치를 입력하세요 [ex 13 10] 종료는 19 19 입력 : ";
+	}
+	else if (compare == false) {
+		cout << "백돌을 놓을 위치를 입력하세요 [ex 13 10] 종료는 19 19 입력 : ";
+	}
+	cin >> a >> b;
 	if (cin.fail()) {
 		cin.clear();
 		cin.ignore(1000, '\n');
 		cout << "잘못 입력하셨습니다." << endl;
+		InputTest(a, b, compare);
+		return;
+	}
+	else if (a >= BADUK_TABLE || b >= BADUK_TABLE) {
+		cout << "값이 테이블(바둑판)의 크기를 넘겼습니다. 다시 입력하세요." << endl;
+		InputTest(a, b, compare);
+		return;
 	}
 	return;
 }
@@ -40,12 +52,24 @@ void FailTest(int a, int b) {
 int main() {
 	char bTable[BADUK_TABLE][BADUK_TABLE] = {};
 	int input1 = 0, input2 = 0;
+	bool wbCompare = true;
+	MadeTabel(bTable);
 	while (true) {
 		system("cls");
-		MadeTabel(bTable);
 		PriTable(bTable);
-		cout << "놓을 돌의 위치를 입력하세요 [ex 13 10] 종료는 19 19 입력 : ";
-		cin >> input1 >> input2;
-		FailTest(input1, input2);
+		InputTest(input1, input2, wbCompare);
+		if (input1 == 19 && input2 == 19) {
+			cout << "프로그램 종료" << endl;
+			break;
+		}
+		if (wbCompare == true) {
+			bTable[input1][input2] = 'O';
+		}
+		else if(wbCompare == false) {
+			bTable[input1][input2] = '@';
+		}
+		wbCompare != wbCompare;
+
 	}
+	return 0;
 }
