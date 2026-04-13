@@ -1,10 +1,5 @@
 #include <iostream>
 
-/* 1. 좌표를 입력 받아 돌을 놓는다.
-   2. 입력된 좌표 위치에는 다른 돌을 못 놓는다.
-   3. 검은돌과 흰돌을 번갈아 놓는다.
-   4. 검은돌의 갯수와 흰돌의 갯수가 출력되게 한다.*/
-
 using namespace std;
 
 const int BADUK_TABLE = 19;
@@ -26,24 +21,29 @@ void PriTable(char table[][BADUK_TABLE]) {
 	}
 }
 
-void InputTest(int &a, int &b, bool compare) {
+void InputTest(int &h, int &w, bool compare, char table[][BADUK_TABLE]) {
 	if (compare == true) {
 		cout << "흑돌을 놓을 위치를 입력하세요 [ex 13 10] 종료는 19 19 입력 : ";
 	}
 	else if (compare == false) {
 		cout << "백돌을 놓을 위치를 입력하세요 [ex 13 10] 종료는 19 19 입력 : ";
 	}
-	cin >> a >> b;
+	cin >> h >> w;
 	if (cin.fail()) {
 		cin.clear();
 		cin.ignore(1000, '\n');
 		cout << "잘못 입력하셨습니다." << endl;
-		InputTest(a, b, compare);
+		InputTest(h, w, compare, table);
 		return;
 	}
-	else if (a >= BADUK_TABLE || b >= BADUK_TABLE) {
+	else if (h > BADUK_TABLE || w > BADUK_TABLE) {
 		cout << "값이 테이블(바둑판)의 크기를 넘겼습니다. 다시 입력하세요." << endl;
-		InputTest(a, b, compare);
+		InputTest(h, w, compare, table);
+		return;
+	}
+	else if (table[h][w] != '+') {
+		cout << "판 위에 이미 돌이 놓여있습니다." << endl;
+		InputTest(h, w, compare, table);
 		return;
 	}
 	return;
@@ -51,24 +51,30 @@ void InputTest(int &a, int &b, bool compare) {
 
 int main() {
 	char bTable[BADUK_TABLE][BADUK_TABLE] = {};
-	int input1 = 0, input2 = 0;
+	int input1 = 0, input2 = 0, white = 0, black = 0;
 	bool wbCompare = true;
+	int a = 0;
 	MadeTabel(bTable);
 	while (true) {
 		system("cls");
 		PriTable(bTable);
-		InputTest(input1, input2, wbCompare);
+		cout << a << endl;
+		cout << "흑돌 : " << black << " 백돌 : " << white << endl;
+		InputTest(input1, input2, wbCompare, bTable);
 		if (input1 == 19 && input2 == 19) {
 			cout << "프로그램 종료" << endl;
 			break;
 		}
 		if (wbCompare == true) {
 			bTable[input1][input2] = 'O';
+			black++;
 		}
 		else if(wbCompare == false) {
 			bTable[input1][input2] = '@';
+			white++;
 		}
-		wbCompare != wbCompare;
+		
+		wbCompare = !wbCompare;
 
 	}
 	return 0;
