@@ -3,8 +3,20 @@
   "WorkspaceRootPath": "C:\\Github\\Programing-Test-Study\\Project1\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{35310EB0-4257-47D8-A769-78FFB7C40C97}|Project1\\Project1.vcxproj|C:\\Github\\Programing-Test-Study\\Project1\\Project1\\List_LoL_Dic.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{35310EB0-4257-47D8-A769-78FFB7C40C97}|Project1\\Project1.vcxproj|solutionrelative:Project1\\List_LoL_Dic.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{35310EB0-4257-47D8-A769-78FFB7C40C97}|Project1\\Project1.vcxproj|C:\\Github\\Programing-Test-Study\\Project1\\Project1\\Baduk.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{35310EB0-4257-47D8-A769-78FFB7C40C97}|Project1\\Project1.vcxproj|solutionrelative:Project1\\Baduk.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{35310EB0-4257-47D8-A769-78FFB7C40C97}|Project1\\Project1.vcxproj|C:\\Github\\Programing-Test-Study\\Project1\\Project1\\LoL_Dic.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{35310EB0-4257-47D8-A769-78FFB7C40C97}|Project1\\Project1.vcxproj|solutionrelative:Project1\\LoL_Dic.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{35310EB0-4257-47D8-A769-78FFB7C40C97}|Project1\\Project1.vcxproj|C:\\Github\\Programing-Test-Study\\Project1\\Project1\\R_LoL_Dic.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{35310EB0-4257-47D8-A769-78FFB7C40C97}|Project1\\Project1.vcxproj|solutionrelative:Project1\\R_LoL_Dic.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,17 +26,56 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LoL_Dic.cpp",
+              "DocumentMoniker": "C:\\Github\\Programing-Test-Study\\Project1\\Project1\\LoL_Dic.cpp",
+              "RelativeDocumentMoniker": "Project1\\LoL_Dic.cpp",
+              "ToolTip": "C:\\Github\\Programing-Test-Study\\Project1\\Project1\\LoL_Dic.cpp",
+              "RelativeToolTip": "Project1\\LoL_Dic.cpp",
+              "ViewState": "AgIAAA4BAAAAAAAAAADwvx4AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-27T13:23:16.613Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "R_LoL_Dic.cpp",
+              "DocumentMoniker": "C:\\Github\\Programing-Test-Study\\Project1\\Project1\\R_LoL_Dic.cpp",
+              "RelativeDocumentMoniker": "Project1\\R_LoL_Dic.cpp",
+              "ToolTip": "C:\\Github\\Programing-Test-Study\\Project1\\Project1\\R_LoL_Dic.cpp",
+              "RelativeToolTip": "Project1\\R_LoL_Dic.cpp",
+              "ViewState": "AgIAAMcAAAAAAAAAAAAAAHEAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-24T13:56:36.238Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "List_LoL_Dic.cpp",
+              "DocumentMoniker": "C:\\Github\\Programing-Test-Study\\Project1\\Project1\\List_LoL_Dic.cpp",
+              "RelativeDocumentMoniker": "Project1\\List_LoL_Dic.cpp",
+              "ToolTip": "C:\\Github\\Programing-Test-Study\\Project1\\Project1\\List_LoL_Dic.cpp",
+              "RelativeToolTip": "Project1\\List_LoL_Dic.cpp",
+              "ViewState": "AgIAAN4AAAAAAAAAAAAAwPcAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-24T13:50:26.093Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Baduk.cpp",
               "DocumentMoniker": "C:\\Github\\Programing-Test-Study\\Project1\\Project1\\Baduk.cpp",
               "RelativeDocumentMoniker": "Project1\\Baduk.cpp",
               "ToolTip": "C:\\Github\\Programing-Test-Study\\Project1\\Project1\\Baduk.cpp",
               "RelativeToolTip": "Project1\\Baduk.cpp",
-              "ViewState": "AgIAAGEAAAAAAAAAAAAowHsAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAM8BAAAAAAAAAAAowNcAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-04-12T17:52:36.454Z",
               "EditorCaption": ""

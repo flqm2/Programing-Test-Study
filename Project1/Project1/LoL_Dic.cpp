@@ -1,9 +1,9 @@
-#include <iostream>
+﻿#include <iostream>
 
 using namespace std;
 
-struct charatherInfo {
-	char Name[100];
+struct CharatherInfo {
+	char name[100];
 	int hp;
 	int mp;
 	int speed;
@@ -11,7 +11,7 @@ struct charatherInfo {
 	char position[100];
 };
 
-charatherInfo LoL_Dic[100] = {
+CharatherInfo LoL_Dic[100] = {
 	{"Jayce", 3466, 8307, 452, 73, "mid"},
 	{"Vayne", 3318, 2790, 390, 60, "support"},
 	{"Lee Sin", 9864, 6257, 747, 19, "support"},
@@ -33,7 +33,7 @@ charatherInfo LoL_Dic[100] = {
 	{"Jarvan", 1895, 3070, 323, 80, "mid"},
 	{"Shen", 4794, 9220, 783, 42, "mid"},
 	{"Fizz", 9864, 1913, 433, 38, "bottom"},
-	{"Taric", 6158, 7451, 160, 36, "bottom" }
+	{"Taric", 6158, 7451, 160, 36, "bottom" },
 };
 
 int indexarr = 22;
@@ -46,36 +46,153 @@ int TextTest(const char* str1, const char* str2) {
 	return *(const unsigned char*)str1 - *(const unsigned char*)str2;
 }
 
-void Strcpy(char* front, char* last) {
-	while (*last != '\0') {
-		*front = *last;
-		front++;
-		last++;
+void StrCpy(char* head, char* tail) {
+	while (*tail != '\0') {
+		*head = *tail;
+		head++;
+		tail++;
 	}
-	*front = '\0';
+	*head = '\0';
 }
 
 void ChampSearch() {
 	if (indexarr == 0) {
-		cout << "x";
+		cout << "챔피언이 존재하지 않습니다." << endl;
+	}
+	char searr[100];
+	int searchcount = 0;
+	cout << "찾을 챔피언을 입력하세요 : ";
+	cin.getline(searr, 100);
+	for (int i = 0; i < indexarr; i++) {
+		if (TextTest(LoL_Dic[i].name, searr) == 0) {
+			cout << "Name : " << LoL_Dic[i].name << endl;
+			cout << "HP : " << LoL_Dic[i].hp << endl;
+			cout << "MP : " << LoL_Dic[i].mp << endl;
+			cout << "Speed : " << LoL_Dic[i].speed << endl;
+			cout << "Range : " << LoL_Dic[i].range << endl;
+			cout << "Position : " << LoL_Dic[i].position << endl;
+			searchcount++;
+		}
+	}
+	if (searchcount == 0) {
+		cout << "찾으시는 챔피언이 존재하지 않습니다." << endl;
+		return;
+	}
+}
+
+int InsertVaule() {
+	int stat;
+	while (true){
+		cin >> stat;
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "정수만 입력하세요." << endl;
+		}
+		else {
+			if (cin.get() != '\n') {
+				cout << "정수만 입력하세요." << endl;
+				cin.clear();
+				cin.ignore(1000, '\n');
+				continue;
+			}
+			return stat;
+		}
+		
+
 	}
 }
 
 void ChampInsert() {
+	if (indexarr >= 100) {
+		cout << "리스트가 초과되었습니다. 챔피언을 삭제해주세요." << endl;
+	}
+	char namearr[100], posarr[100];
+	int h, m, s, r;
 
+	cout << "추가할 챔피언의 이름을 입력하세요 : ";
+	cin.getline(namearr, 100);
+	for (int i = 0; i < indexarr; i++) {
+		if (TextTest(LoL_Dic[i].name, namearr) == 0) {
+			cout << "이미 동일한 이름의 챔피언이 존재합니다. 다시 입력하세요" << endl;
+			continue;
+		}
+	}
+	cout << "Hp : ";
+	h = InsertVaule();
+	cout << "Mp : ";
+	m = InsertVaule();
+	cout << "Speed : ";
+	s = InsertVaule();
+	cout << "Range : ";
+	r = InsertVaule();
+	cout << "Position : ";
+	cin.getline(posarr, 100);
+
+
+	StrCpy(LoL_Dic[indexarr].name, namearr);
+	LoL_Dic[indexarr].hp = h;
+	LoL_Dic[indexarr].mp = m;
+	LoL_Dic[indexarr].speed = s;
+	LoL_Dic[indexarr].range = r;
+	StrCpy(LoL_Dic[indexarr].position, posarr);
+
+	indexarr++;
+	cout << "추가완료" << endl;
 }
 
 void ChampDelete() {
-
+	if (indexarr == 0) {
+		cout << "삭제 못함" << endl;
+	}
+	char delarr[100];
+	int delcount = 0;
+	cout << "삭제할 챔피언 입력 : ";
+	cin.getline(delarr, 100);
+	for (int i = indexarr - 1; i >= 0; i--) {
+		if (TextTest(LoL_Dic[i].name, delarr) == 0) {
+			for (int j = i; j < indexarr - 1; j++) {
+				LoL_Dic[j] = LoL_Dic[j + 1];
+			}
+			cout << "삭제를 완료했습니다.";
+			return;
+		}
+	}
+	cout << "챔피언이 존재하지 않습니다.";
 }
 
 void ChampDeleteAll() {
-	
+	if (indexarr == 0) {
+		cout << "삭제 못함" << endl;
+	}
+	char delarr[100];
+	int delcount = 0;
+	cout << "삭제할 포지션 입력 : ";
+	cin.getline(delarr, 100);
+	for (int i = indexarr - 1; i >= 0; i--) {
+		if (TextTest(LoL_Dic[i].position, delarr) == 0) {
+			for (int j = i; j < indexarr - 1; j++) {
+				LoL_Dic[j] = LoL_Dic[j + 1];
+			}
+			delcount++;
+		}
+	}
+	if (delcount == 0) {
+		cout << "포지션이 존재하지 않습니다.";
+	}
+	else {
+		cout << "삭제를 완료 했습니다." << endl;
+	}
 }
 
 void ChampPrintAll() {
+	if (indexarr == 0) {
+		cout << "리스트에 챔피언이 없습니다." << endl;
+		return;
+	}
+	cout << "챔피언 리스트" << endl;
 	for (int i = 0; i < indexarr; i++) {
-		cout << LoL_Dic[i].Name << ", ";
+		cout << LoL_Dic[i].name << ", ";
 		cout << LoL_Dic[i].hp << ", ";
 		cout << LoL_Dic[i].mp << ", ";
 		cout << LoL_Dic[i].speed << ", ";
@@ -85,6 +202,9 @@ void ChampPrintAll() {
 }
 
 void ChampFMH() {
+	if (indexarr == 0) {
+		cout << "없어요" << endl;
+	}
 	int king;
 	king = LoL_Dic[0].hp;
 	for (int i = 1; i < indexarr; i++) {
@@ -92,10 +212,23 @@ void ChampFMH() {
 			king = LoL_Dic[i].hp;
 		}
 	}
+	for (int i = 0; i < indexarr; i++) {
+		if (king == LoL_Dic[i].hp) {
+			cout << "Name : " << LoL_Dic[i].name << endl;
+			cout << "HP : " << LoL_Dic[i].hp << endl;
+			cout << "MP : " << LoL_Dic[i].mp << endl;
+			cout << "Speed : " << LoL_Dic[i].speed << endl;
+			cout << "Range : " << LoL_Dic[i].range << endl;
+			cout << "Position : " << LoL_Dic[i].position << endl << endl;
+		}
+	}
 }
 
 void ChampSBH() {
-	charatherInfo temp;
+	if (indexarr <= 1) {
+		cout << "없어요" << endl;
+	}
+	CharatherInfo temp;
 	for (int i = 0; i < indexarr - 1; i++) {
 		for (int j = 0; j < indexarr - 1; j++) {
 			if (LoL_Dic[j].hp < LoL_Dic[j + 1].hp) {
@@ -108,10 +241,21 @@ void ChampSBH() {
 	cout << "정렬 완료" << endl;
 }
 
+void HelpRule() {
+	cout << "명령어 목록" << endl;
+	cout << "[Search]" << endl;
+	cout << "[Insert]" << endl;
+	cout << "[Delete]" << endl;
+	cout << "[DeleteAll]" << endl;
+	cout << "[PrintAll]" << endl;
+	cout << "[FindMaxHp]" << endl;
+	cout << "[SortByHp]" << endl;
+}
+
 int main() {
 	char input[100];
-	while (true){
-		cout << "사용하려는 명령어를 입력하세요 종료는 'end' 입력 : ";
+	while (true) {
+		cout << "사용하려는 명령어를 입력하세요. 종료는 'end' 명령어 찾기는 'help' 입력. : ";
 		cin.getline(input, 100);
 		if (TextTest(input, "Search") == 0) {
 			ChampSearch();
@@ -134,8 +278,11 @@ int main() {
 		else if (TextTest(input, "SortByHp") == 0) {
 			ChampSBH();
 		}
+		else if (TextTest(input, "help") == 0) {
+			HelpRule();
+		}
 		else if (TextTest(input, "end") == 0) {
-			cout << "프로그램 종료." << endl;
+			cout << "종료 되었습니다.";
 			return 0;
 		}
 		else {
@@ -143,5 +290,4 @@ int main() {
 			continue;
 		}
 	}
-	return 0;
 }

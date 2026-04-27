@@ -332,7 +332,7 @@ int main() {
 	while (true) {
 		cout << "사용하려는 명령어를 입력하세요. 종료는 'end' 명령어 찾기는 'help' 입력. : ";
 		cin.getline(input, 100);
-		if (TextTest(input, "Search") == 0) {
+		if (strcmp(input, "Search") == 0) {
 			ChampSearch();
 		}
 		else if (TextTest(input, "Insert") == 0) {
