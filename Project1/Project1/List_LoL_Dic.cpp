@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -104,8 +104,75 @@ void ChampSearch() {
 	cout << "찾는 챔피언이 리스트에 없습니다." << endl;
 }
 
-void ChampInsert() {
+int InsertValue() {
+	int value = 0;
+	while (true) {
+		cin >> value;
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "정수만 입력하세요" << endl;
+		}
+		else {
+			if (cin.get() != '\n') {
+				cin.clear();
+				cin.ignore(1000, '\n');
+				cout << "정수만 입력하세요2" << endl;
+				continue;
+			}
+			return value;
+		}
+	}
+}
 
+void ChampInsert() {
+	system("cls");
+	Node* insnode = new Node;
+	Node* prev = tail;
+	Node* curr = head;
+	cout << "추가할 챔피언의 이름을 입력하세요 : ";
+	cin.ignore(1000, '\n');
+	getline(cin, insnode->info.name);
+	cout << "HP : ";
+	insnode->info.hp = InsertValue();
+	cout << "MP : ";
+	insnode->info.mp = InsertValue();
+	cout << "Speed : ";
+	insnode->info.speed = InsertValue();
+	cout << "Range : ";
+	insnode->info.range = InsertValue();
+	cout << "Position : ";
+	cin.clear();
+	getline(cin, insnode->info.position);
+
+	if (head->info.hp <= insnode->info.hp) {
+		insnode->next = head;
+		head = insnode;
+		tail->next = head;
+		cout << "삽입 완료!" << endl;
+		return;
+	}
+
+	do {
+		if (curr == tail && curr->info.hp > insnode->info.hp) {
+			curr->next = insnode;
+			insnode->next = head;
+			tail = insnode;
+			cout << "삽입 완료1" << endl;
+			return;
+		}
+		if (curr->info.hp < insnode->info.hp) {
+			insnode->next = curr;
+			prev->next = insnode;
+			cout << "삽입 완료 2" << endl;
+			return;
+		}
+		else {
+			prev = prev->next;
+			curr = curr->next;
+		}
+	} while (curr != head);
+	cout << "프로그램 오류" << endl;
 }
 
 void ChampDelete() {
@@ -221,6 +288,17 @@ void ChampPrintAll() {
 	} while (curr != head);
 }
 
+int FindHP(int max_hp, Node* startnode) {
+	Node* curr = startnode;
+	do {
+		if (curr->info.hp > max_hp) {
+			max_hp = curr->info.hp;
+		}
+		curr = curr->next;
+	} while (curr != startnode);
+	return max_hp;
+}
+
 void ChampFMH() {
 	if (head == nullptr) {
 		cout << "리스트에 챔피언이 없습니다!";
@@ -228,14 +306,7 @@ void ChampFMH() {
 	}
 	int max_hp = head->info.hp;
 	Node* curr = head;
-	do {
-		if (curr->info.hp > max_hp) {
-			max_hp = curr->info.hp;
-		}
-		else {
-			curr = curr->next;
-		}
-	} while (curr != head);
+	max_hp = FindHP(max_hp, curr);
 	curr = head;
 	do {
 		if (curr->info.hp == max_hp) {
@@ -252,6 +323,96 @@ void ChampFMH() {
 }
 
 void ChampSBH() {
+	if (head == nullptr && tail == head) {
+		cout << "리스트에 챔피언이 너무 적거나 없습니다." << endl;
+		return;
+	}
+
+	Node* sortedhead = nullptr;
+	Node* sortedtail = nullptr;
+
+	while (head != nullptr) {
+		int max_hp = FindHP(max_hp, head);
+
+		Node* maxNode = head;
+		Node* prevNode = tail;
+
+		if (maxNode->info.hp != max_hp) {
+			prevNode = maxNode;
+			maxNode = maxNode->next;
+		}
+
+		if (maxNode == head && maxNode == tail) {
+			head = nullptr;
+			tail = nullptr;
+		}
+		else {
+			prevNode->next = maxNode->next;
+
+		}
+	}
+
+
+
+
+
+
+	//// 새롭게 만들어질 정렬된 리스트를 가리킬 포인터
+	//Node* sortedHead = nullptr;
+	//Node* sortedTail = nullptr;
+
+	//// 기존 리스트(head)가 완전히 빌 때까지(nullptr이 될 때까지) 반복
+	//while (head != nullptr) {
+
+	//	// 1. 직접 만드신 FindHP 함수를 호출하여 현재 리스트의 최고 체력(값)을 찾습니다!
+	//	int max_hp = FindHP(head->info.hp, head);
+
+	//	// 2. 최고 체력을 가진 노드(maxNode)와 그 이전 노드(maxPrev)를 찾습니다.
+	//	// (노드를 뜯어내려면 이전 노드가 다음 노드를 덮어쓰도록 연결해야 하므로 prev가 꼭 필요합니다)
+	//	Node* maxNode = head;
+	//	Node* maxPrev = tail; // 원형 리스트이므로 head의 이전 노드는 tail입니다.
+
+	//	while (maxNode->info.hp != max_hp) {
+	//		maxPrev = maxNode;
+	//		maxNode = maxNode->next;
+	//	}
+
+	//	// 3. 찾은 maxNode를 기존 리스트에서 뜯어냅니다(Detach).
+	//	if (maxNode == head && maxNode == tail) {
+	//		// 리스트에 노드가 딱 1개 남았던 경우, 이제 기존 리스트는 텅 비게 됩니다.
+	//		head = nullptr;
+	//		tail = nullptr;
+	//	}
+	//	else {
+	//		maxPrev->next = maxNode->next; // 이전 노드가 잘려나갈 노드의 다음을 가리키게 하여 점프!
+
+	//		if (maxNode == head) {
+	//			head = maxNode->next;  // 뜯어낸 노드가 head였다면, 다음 노드가 새로운 head가 됨
+	//			tail->next = head;     // 꼬리도 새로운 head를 가리키도록 갱신
+	//		}
+	//		else if (maxNode == tail) {
+	//			tail = maxPrev;        // 뜯어낸 노드가 tail이었다면, 이전 노드가 새로운 tail이 됨
+	//			tail->next = head;
+	//		}
+	//	}
+
+	//	// 4. 뜯어낸 maxNode를 새로운 정렬 리스트의 맨 뒤에 붙입니다(Append).
+	//	if (sortedHead == nullptr) {
+	//		sortedHead = maxNode;
+	//		sortedTail = maxNode;
+	//		maxNode->next = sortedHead; // 새 리스트도 원형 유지
+	//	}
+	//	else {
+	//		sortedTail->next = maxNode;
+	//		sortedTail = maxNode;
+	//		sortedTail->next = sortedHead; // 새 리스트 원형 유지
+	//	}
+	//}
+
+	//// 5. 정렬이 완료된 새 리스트를 메인 리스트(head, tail)로 덮어씌웁니다.
+	//head = sortedHead;
+	//tail = sortedTail;
+	
 
 }
 
