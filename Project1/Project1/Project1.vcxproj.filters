@@ -27,5 +27,8 @@
     <ClCompile Include="List_LoL_Dic.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="LinkedList.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
