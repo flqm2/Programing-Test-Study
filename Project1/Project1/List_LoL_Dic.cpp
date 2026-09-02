@@ -4,6 +4,7 @@
 #include <string>
 #include <cstring>
 #include <cstdlib>
+#include <vector>
 
 using namespace std;
 
@@ -20,6 +21,8 @@ struct Node {
 	charaterinfo info;
 	Node* next;
 };
+
+vector<charaterinfo>test1;
 
 Node* head = nullptr;
 Node* tail = nullptr;
@@ -213,6 +216,9 @@ void ChampInsert() {
 		}
 	} while (curr != head);
 	cout << "프로그램 오류" << endl;
+
+
+
 }
 
 void ChampDelete() {
