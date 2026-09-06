@@ -1,0 +1,22 @@
+# Visual Studio 임시 폴더 및 사용자 파일
+.vs/
+*.user
+
+# 빌드 결과물 폴더
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+x64/
+x86/
+
+# 빌드 로그 및 임시 파일
+*.tlog
+*.ilk
+*.obj
+*.pdb
+*.idb
+*.ipch
+*.lastbuildstate
+
+# 실행 파일
+*.exe
