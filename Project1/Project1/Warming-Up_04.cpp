@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <vector>
 #include <string>
 #include <random>
@@ -19,11 +19,11 @@ void PrintBoard(int tr1 = -1, int tc1 = -1, int tr2 = -1, int tc2 = -1, bool sho
     GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
     WORD original = consoleInfo.wAttributes;
 
-    cout << "\n    ";
+    cout << endl << "    ";
     for (int c = 0; c < cols; c++) {
         cout << (char)('a' + c) << " ";
     }
-    cout << "\n\n";
+    cout << endl << endl;
 
     for (int r = 0; r < rows; r++) {
         cout << r + 1 << "   ";
@@ -44,9 +44,10 @@ void PrintBoard(int tr1 = -1, int tc1 = -1, int tr2 = -1, int tc2 = -1, bool sho
                 cout << "* ";
             }
         }
-        cout << "\n";
+        cout << endl;
     }
-    cout << "\n진행 횟수: " << tries << " | 점수: " << score << "\n\n";
+    cout << endl << "진행 횟수: " << tries << " | 점수: " << score << endl;
+    cout << "입력 방식 : a1 b3" << endl;
 }
 
 void InitGame() {
@@ -94,6 +95,7 @@ void InitGame() {
 }
 
 int main() {
+    cout << "보드의 크기를 정해주세요 (ex : 3 3, 2 4) : ";
     InitGame();
     PrintBoard();
     string input;
