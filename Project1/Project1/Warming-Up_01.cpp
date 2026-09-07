@@ -11,7 +11,8 @@ struct Determinant
 
 Determinant det1;
 Determinant det2;
-Determinant originalDet1, originalDet2;
+Determinant originalDetLow1, originalDetLow2;
+Determinant originalDetCol1, originalDetCol2;
 
 void MadeBoard() {
 	random_device rd1;
@@ -81,7 +82,6 @@ void DeMulti() {
 void DeAdd() {
 	Determinant addet;
 	for (int i = 0; i < 4; i++) {
-		int adder = 0;
 		for (int j = 0; j < 4; j++) {
 			addet.determinant[i][j] = det1.determinant[i][j] + det2.determinant[i][j];
 		}
@@ -97,7 +97,6 @@ void DeAdd() {
 void DeMinus() {
 	Determinant mindet;
 	for (int i = 0; i < 4; i++) {
-		int adder = 0;
 		for (int j = 0; j < 4; j++) {
 			mindet.determinant[i][j] = det1.determinant[i][j] - det2.determinant[i][j];
 		}
@@ -156,8 +155,8 @@ void TransPosed() {
 
 void RowMin(bool rowCompare) {
 	if (rowCompare) {
-		originalDet1 = det1;
-		originalDet2 = det2;
+		originalDetLow1 = det1;
+		originalDetLow2 = det2;
 		int a = 10;
 		int b = 10;
 		for (int i = 0; i < 4; i++) {
@@ -185,8 +184,8 @@ void RowMin(bool rowCompare) {
 		}
 	}
 	else {
-		det1 = originalDet1;
-		det2 = originalDet2;
+		det1 = originalDetLow1;
+		det2 = originalDetLow2;
 	}
 	system("cls");
 	Print();
@@ -194,8 +193,8 @@ void RowMin(bool rowCompare) {
 
 void ColMax(bool colCompare) {
 	if (colCompare) {
-		originalDet1 = det1;
-		originalDet2 = det2;
+		originalDetCol1 = det1;
+		originalDetCol2 = det2;
 		int a = 0;
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
@@ -222,8 +221,8 @@ void ColMax(bool colCompare) {
 		}
 	}
 	else {
-		det1 = originalDet1;
-		det2 = originalDet2;
+		det1 = originalDetCol1;
+		det2 = originalDetCol2;
 	}
 	system("cls");
 	Print();
@@ -290,7 +289,7 @@ int main() {
 		else if (input == "r") {
 			int result1 = getDeterminant(det1.determinant, 4);
 			int result2 = getDeterminant(det2.determinant, 4);
-			cout << result1 << setw(5) << result2;
+			cout << result1 << setw(5) << result2 << endl;;
 		}
 		else if (input == "t") {
 			TransPosed();

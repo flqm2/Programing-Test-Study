@@ -5,20 +5,67 @@
 #include <string>
 #include <iomanip>
 #include <Windows.h>
+#include <cctype>
 
 using namespace std;
 
 vector<string> fullData;
+vector<string> originalDataH;
 
-void Print() {
+bool colorOn = false;
+bool backwardOn = false;
+bool starOn = false;
+bool reverseWordOn = false;
+bool compareH = false;
+
+void UnifiedPrint() {
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+	GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
+	WORD originalAttributes = consoleInfo.wAttributes;
+
 	for (int i = 0; i < fullData.size(); i++) {
 		stringstream ss(fullData[i]);
+		vector<string> words;
 		string word;
-		bool frist = true;
 		while (ss >> word) {
-			if (!frist) cout << " ";
-			cout << word;
-			frist = false;
+			words.push_back(word);
+		}
+
+		if (reverseWordOn) {
+			vector<string> reversed;
+			for (int j = words.size() - 1; j >= 0; j--) {
+				reversed.push_back(words[j]);
+			}
+			words = reversed;
+		}
+
+		int colorCount = 0;
+		for (int j = 0; j < words.size(); j++) {
+			if (j != 0) {
+				cout << (starOn ? "*" : " ");
+			}
+
+			bool isUpperStart = words[j][0] >= 'A' && words[j][0] <= 'Z';
+			if (colorOn && isUpperStart) {
+				SetConsoleTextAttribute(hConsole, 6);
+				colorCount++;
+			}
+
+			if (backwardOn) {
+				for (int k = words[j].size() - 1; k >= 0; k--) {
+					cout << words[j][k];
+				}
+			}
+			else {
+				cout << words[j];
+			}
+
+			SetConsoleTextAttribute(hConsole, originalAttributes);
+		}
+
+		if (colorOn) {
+			cout << setw(5) << "단어 개수 : " << colorCount;
 		}
 		cout << endl;
 	}
@@ -39,12 +86,10 @@ void FileOpen() {
 		fullData.push_back(line);
 	}
 	cout << fullData.size() << "개의 문장 저장" << endl;
-	Print();
+	UnifiedPrint();
 }
 
-
-void TurnLoRo(){
-	string text;
+void TurnLoRo() {
 	for (int i = 0; i < fullData.size(); i++) {
 		for (int j = 0; j < fullData[i].size(); j++) {
 			if (fullData[i][j] >= 65 && fullData[i][j] <= 90) {
@@ -55,7 +100,6 @@ void TurnLoRo(){
 			}
 		}
 	}
-
 }
 
 void PrintWord() {
@@ -75,127 +119,156 @@ void PrintWord() {
 	}
 }
 
-void ChangeColor(bool compare) {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+void ReplaceChar() {
+	char from, to;
+	cout << "바꿀 문자를 입력하세요: ";
+	cin >> from;
+	cout << "새로 입력할 문자를 입력하세요: ";
+	cin >> to;
 
+	for (int i = 0; i < fullData.size(); i++) {
+		for (int j = 0; j < fullData[i].size(); j++) {
+			if (fullData[i][j] == from) {
+				fullData[i][j] = to;
+			}
+		}
+	}
+	UnifiedPrint();
+}
+
+void SplitAtDigit(bool apply) {
+	if (apply) {
+		originalDataH = fullData;
+		vector<string> newData;
+		for (int i = 0; i < fullData.size(); i++) {
+			string current = "";
+			for (int j = 0; j < fullData[i].size(); j++) {
+				current += fullData[i][j];
+				if (isdigit(fullData[i][j])) {
+					newData.push_back(current);
+					current = "";
+				}
+			}
+			if (!current.empty()) {
+				newData.push_back(current);
+			}
+		}
+		fullData = newData;
+	}
+	else {
+		fullData = originalDataH;
+	}
+	UnifiedPrint();
+}
+
+void SearchWord() {
+	string target;
+	cout << "찾을 단어를 입력하세요: ";
+	cin >> target;
+
+	string lowerTarget = target;
+	for (int k = 0; k < lowerTarget.size(); k++) {
+		lowerTarget[k] = tolower(lowerTarget[k]);
+	}
+
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
 	GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
 	WORD originalAttributes = consoleInfo.wAttributes;
 
-	int colorCount = 0;
-	if (compare == false) {
-		for (int i = 0; i < fullData.size(); i++) {
-			stringstream ss(fullData[i]);
-			string word;
-			bool frist = true;
-			while (ss >> word) {
-				if (word[0] >= 'A' && word[0] <= 'Z') {
-					SetConsoleTextAttribute(hConsole, 6);
-					colorCount++;
-				}
-				if (!frist) cout << " ";
-				cout << word;
-				SetConsoleTextAttribute(hConsole, originalAttributes);
-				frist = false;
-			}
-			cout << setw(5) << "단어 개수 : " << colorCount << endl;
-			colorCount = 0;
-		}
-	}
-	else {
-		SetConsoleTextAttribute(hConsole, originalAttributes);
-		Print();
-	}
-}
-
-void BackWord(bool compare) {
-	if (compare == true) {
-		Print();
-	}
-	else {
-		for (int i = 0; i < fullData.size(); i++) {
-			int dataSize = fullData[i].size();
-			for (int j = dataSize - 1; j >= 0; j--) {
-				cout << fullData[i][j];
-			}
-			cout << endl;
-		}
-	}
-}
-
-void StarPrint(bool compare) {
-	if (compare == true) {
-		Print();
-	}
-	else {
-		for (int i = 0; i < fullData.size(); i++) {
-			stringstream ss(fullData[i]);
-			string word;
-			bool frist = true;
-			while (ss >> word) {
-				if (!frist) cout << "*";
-				cout << word;
-				frist = false;
-			}
-			cout << endl;
-		}
-	}
-}
-
-void ReverseWordOrder() {
+	int count = 0;
 	for (int i = 0; i < fullData.size(); i++) {
 		stringstream ss(fullData[i]);
-		vector<string> words;
 		string word;
+		bool frist = true;
 		while (ss >> word) {
-			words.push_back(word); 
-		}
-		for (int j = words.size() - 1; j >= 0; j--) { 
-			if (j != words.size() - 1) cout << " ";
-			cout << words[j];
+			if (!frist) cout << " ";
+
+			string lowerWord = word;
+			for (int k = 0; k < lowerWord.size(); k++) {
+				lowerWord[k] = tolower(lowerWord[k]);
+			}
+
+			if (lowerWord == lowerTarget) {
+				SetConsoleTextAttribute(hConsole, 6);
+				cout << word;
+				SetConsoleTextAttribute(hConsole, originalAttributes);
+				count++;
+			}
+			else {
+				cout << word;
+			}
+			frist = false;
 		}
 		cout << endl;
 	}
+	cout << "찾은 단어 개수 : " << count << endl;
+}
+
+void RotateSentences() {
+	int n = fullData.size();
+	vector<string> newData(n);
+	for (int i = 0; i < n; i++) {
+		newData[(i + 1) % n] = fullData[i];
+	}
+	fullData = newData;
+	UnifiedPrint();
 }
 
 int main() {
 	FileOpen();
 	string input;
-	bool compare = false;
-	bool compare2 = false;
-	bool compare3 = false;
+
 	while (true) {
 		cin >> input;
 		if (input == "a") {
 			system("cls");
 			TurnLoRo();
-			Print();
+			UnifiedPrint();
 		}
 		else if (input == "b") {
 			PrintWord();
 		}
 		else if (input == "c") {
 			system("cls");
-			ChangeColor(compare);
-			compare = !compare;
+			colorOn = !colorOn;
+			UnifiedPrint();
 		}
 		else if (input == "d") {
 			system("cls");
-			BackWord(compare3);
-			compare3 = !compare3;
+			backwardOn = !backwardOn;
+			UnifiedPrint();
 		}
 		else if (input == "e") {
 			system("cls");
-			StarPrint(compare2);
-			compare2 = !compare2;
+			starOn = !starOn;
+			UnifiedPrint();
 		}
 		else if (input == "f") {
-			ReverseWordOrder();
+			system("cls");
+			reverseWordOn = !reverseWordOn;
+			UnifiedPrint();
+		}
+		else if (input == "g") {
+			system("cls");
+			ReplaceChar();
+		}
+		else if (input == "h") {
+			system("cls");
+			compareH = !compareH;
+			SplitAtDigit(compareH);
+		}
+		else if (input == "i") {
+			system("cls");
+			SearchWord();
+		}
+		else if (input == "j") {
+			system("cls");
+			RotateSentences();
 		}
 		else if (input == "q") {
 			break;
 		}
-
 	}
 	return 0;
 }
