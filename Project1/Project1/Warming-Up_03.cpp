@@ -40,7 +40,7 @@ void Print() {
         }
     }
     else {
-        for (int i = 9; i >= 0; i--) {
+        for (int i = 2; i >= 0; i--) {
             cout << setw(2) << i << " | ";
             if (valid[i]) {
                 cout << arr[i].x << " " << arr[i].y << " " << arr[i].z;

@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <Windows.h>
 #include <cctype>
+#include <algorithm>
 
 using namespace std;
 
@@ -46,21 +47,17 @@ void UnifiedPrint() {
 				cout << (starOn ? "*" : " ");
 			}
 
-			bool isUpperStart = words[j][0] >= 'A' && words[j][0] <= 'Z';
+			string outputWord = words[j];
+			if (backwardOn) {
+				reverse(outputWord.begin(), outputWord.end());
+			}
+			bool isUpperStart = outputWord[0] >= 'A' && outputWord[0] <= 'Z';
 			if (colorOn && isUpperStart) {
 				SetConsoleTextAttribute(hConsole, 6);
 				colorCount++;
 			}
-
-			if (backwardOn) {
-				for (int k = words[j].size() - 1; k >= 0; k--) {
-					cout << words[j][k];
-				}
-			}
-			else {
-				cout << words[j];
-			}
-
+			
+			cout << outputWord;
 			SetConsoleTextAttribute(hConsole, originalAttributes);
 		}
 

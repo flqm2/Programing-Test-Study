@@ -138,12 +138,44 @@ int main() {
             char char1 = board[r1][c1];
             char char2 = board[r2][c2];
 
-            if (char1 == char2 || char1 == '@' || char2 == '@') {
+            bool hasJoker = (char1 == '@' || char2 == '@');
+
+            if (hasJoker) {
+                // 조커가 아닌 선택 카드의 문양
+                char target = (char1 == '@') ? char2 : char1;
+
+                // 보드 안의 같은 문양 카드 2장을 모두 활성화
+                for (int r = 0; r < rows; r++) {
+                    for (int c = 0; c < cols; c++) {
+                        if (board[r][c] == target) {
+                            revealed[r][c] = true;
+
+                            if (board[r][c] >= 'a' && board[r][c] <= 'z') {
+                                board[r][c] -= 32;
+                            }
+                        }
+                    }
+                }
+
+                // 조커도 활성화
+                if (char1 == '@') {
+                    revealed[r1][c1] = true;
+                }
+                else {
+                    revealed[r2][c2] = true;
+                }
+
+                score += 10;
+            }
+            else if (char1 == char2) {
                 revealed[r1][c1] = true;
                 revealed[r2][c2] = true;
 
-                if (board[r1][c1] >= 'a' && board[r1][c1] <= 'z') board[r1][c1] -= 32;
-                if (board[r2][c2] >= 'a' && board[r2][c2] <= 'z') board[r2][c2] -= 32;
+                if (board[r1][c1] >= 'a' && board[r1][c1] <= 'z')
+                    board[r1][c1] -= 32;
+
+                if (board[r2][c2] >= 'a' && board[r2][c2] <= 'z')
+                    board[r2][c2] -= 32;
 
                 score += 10;
             }

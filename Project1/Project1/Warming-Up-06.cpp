@@ -57,19 +57,34 @@ void PrintFace(ostream& out, const Face& face, size_t number,
         if (face.tokens.size() != 3)
             throw runtime_error("삼각형의 꼭짓점은 정확히 3개여야 합니다.");
         array<Corner, 3> corners;
+        bool hasInvalidReference = false;
+
         for (int i = 0; i < 3; ++i) {
             corners[i] = ReadCorner(face.tokens[i]);
             const Corner& c = corners[i];
+
             if (static_cast<size_t>(c.vertex) > vertices.size())
                 throw runtime_error("정점 인덱스가 저장된 정점의 범위를 벗어났습니다.");
-            if (!validVertex[c.vertex - 1])
-                throw runtime_error("잘못된 정점 데이터를 참조하는 면입니다.");
+
+            if (!validVertex[c.vertex - 1]) {
+                hasInvalidReference = true;
+                break;
+            }
+
             if (c.texture != 0) {
                 if (static_cast<size_t>(c.texture) > textures.size())
                     throw runtime_error("텍스처 인덱스가 저장된 텍스처의 범위를 벗어났습니다.");
-                if (!validTexture[c.texture - 1])
-                    throw runtime_error("잘못된 텍스처 데이터를 참조하는 면입니다.");
+
+                if (!validTexture[c.texture - 1]) {
+                    hasInvalidReference = true;
+                    break;
+                }
             }
+        }
+
+        if (hasInvalidReference) {
+            out << "삼각형 " << number << " [입력 줄 " << face.line << "] 생략: 앞선 v/vt 입력 오류를 참조합니다.\n";
+            return;  // 원본 v/vt 줄에서 이미 오류를 보고했으므로 면 오류는 생략
         }
         for (int i = 0; i < 3; ++i) {
             for (int j = i + 1; j < 3; ++j) {
